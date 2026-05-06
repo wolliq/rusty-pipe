@@ -1,0 +1,26 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.4.4
+    hooks:
+      # Run the linter.
+      - id: ruff
+        args: [ --fix ]
+      # Run the formatter.
+      - id: ruff-format
+
+  - repo: https://github.com/sirwart/ripsecrets
+    rev: v0.1.6
+    hooks:
+      - id: ripsecrets
+
+  # Use a local hook for 'ty' since it might not have an official pre-commit repo yet.
+  # uvx will fetch and run the tool without needing a local installation.
+  - repo: local
+    hooks:
+      - id: ty
+        name: ty (Astral's Rust-based type checker)
+        entry: uvx ty check
+        language: system
+        types: [python]
+        pass_filenames: false
